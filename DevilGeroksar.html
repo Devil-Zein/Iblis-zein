@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kuis Devil GEROKSAR</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(160deg, #0f0f0f, #1a1a40);
+      color: #00ffff;
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff007f;
+      font-size: 2.7em;
+      text-shadow: 0 0 20px #ff00ff;
+      margin-bottom: 30px;
+    }
+
+    .question-box {
+      background: radial-gradient(circle at top, #1e1e2f, #000);
+      border: 3px solid #ff007f;
+      border-radius: 25px;
+      padding: 30px;
+      max-width: 750px;
+      margin: auto;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    }
+
+    .image-container {
+      margin-bottom: 25px;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255, 0, 128, 0.6);
+    }
+
+    #question {
+      font-size: 1.6em;
+      margin-bottom: 25px;
+      text-shadow: 0 0 8px #00ffff;
+    }
+
+    .option {
+      display: block;
+      margin: 12px auto;
+      padding: 15px;
+      width: 90%;
+      max-width: 500px;
+      background: linear-gradient(to right, #222, #444);
+      color: #00ffff;
+      border: 1px solid #ff007f;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+    }
+
+    .option:hover {
+      background: linear-gradient(to right, #ff00ff, #00ffff);
+      color: #000;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+    }
+
+    #score-box {
+      margin-top: 30px;
+      font-size: 1.3em;
+      color: #fff;
+      text-shadow: 0 0 5px #00ffff;
+    }
+
+    #menu-button {
+      display: none;
+      margin-top: 30px;
+    }
+
+    #menu-button a {
+      text-decoration: none;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 15px 30px;
+      border-radius: 25px;
+      color: #fff;
+      background: linear-gradient(to right, gold, #00ffff);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+      transition: 0.3s ease;
+    }
+
+    #menu-button a:hover {
+      background: linear-gradient(to right, #00ffff, gold);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Tombol Rahasia */
+    #easter-egg {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 50px;
+      height: 50px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 99;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kuis Devil GEROKSAR</h1>
+
+  <button id="easter-egg" onclick="revealAnswers()"></button>
+
+  <div class="question-box">
+    <div class="image-container">
+      <img id="question-image" src="https://via.placeholder.com/600x300.png?text=Devil+GEROKSAR" alt="Gambar Soal">
+    </div>
+    <div id="question">Memuat soal...</div>
+    <div id="options"></div>
+  </div>
+  <div id="score-box"></div>
+
+  <div id="menu-button">
+    <a href="index.html">Kembali ke Menu</a>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Siapa karakter utama dalam Devil GEROKSAR?",
+        options: ["A. Tahka", "B. Boboycraft3", "C. Sugarhuvi", "D. SIJ"],
+        answer: 2,
+        image: "https://via.placeholder.com/600x300.png?text=Sugarhuvi"
+      },
+      {
+        question: "Apa nama bentuk kekuatan spiritual dalam Devil GEROKSAR?",
+        options: ["A. Chakra", "B. Void", "C. Groin", "D. Ki"],
+        answer: 2,
+        image: "https://via.placeholder.com/600x300.png?text=Groin+Power"
+      },
+      {
+        question: "Apa nama senjata legendaris milik Tahka?",
+        options: ["A. Yoinka", "B. Excalibur", "C. Groas Sword", "D. Nihilus"],
+        answer: 0,
+        image: "https://via.placeholder.com/600x300.png?text=Yoinka"
+      },
+      {
+        question: "Apa kelemahan pengguna Void Star?",
+        options: ["A. Air", "B. Batu Bulan", "C. Mantra Bayangan", "D. Senjata Es"],
+        answer: 1,
+        image: "https://via.placeholder.com/600x300.png?text=Batu+Bulan"
+      },
+      {
+        question: "Siapa Karakter Dengan menggunakan 2 void star sekaligus?",
+        options: ["A. Tahka", "B. SioBrine", "C. Boboycraft3", "D. Teach"],
+        answer: 1,
+        image: "https://via.placeholder.com/600x300.png?text=Value+Zein"
+      },
+      {
+        question: "Siapa karakter MENGGUNAKAN kekuatan Molekul?",
+        options: ["A. SIJ", "B. Roronoa Zoro", "C. Gopal", "D. Naruto"],
+        answer: 0,
+        image: "https://via.placeholder.com/600x300.png?text=Misi+Hiro"
+      },
+      {
+        question: "Siapa Dewa terkuat Di Devil GEROKSAR?",
+        options: ["A. Ahmad", "B. Satria", "C. Boboycraft3", "D. Boboycraft"],
+        answer: 2,
+        image: "https://via.placeholder.com/600x300.png?text=Misi+Hiro"
+      },
+    ];
+
+    let score = 0;
+    let currentIndex = 0;
+    const totalQuestions = questions.length;
+    let shuffled = [];
+
+    function shuffleQuestions() {
+      shuffled = [...questions].sort(() => Math.random() - 0.5);
+    }
+
+    function showQuestion(index) {
+      const q = shuffled[index];
+      document.getElementById('question').innerText = q.question;
+      document.getElementById('question-image').src = q.image;
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'option';
+        btn.innerText = opt;
+        btn.onclick = () => checkAnswer(i);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected) {
+      const correct = shuffled[currentIndex].answer;
+      if (selected === correct) {
+        score++;
+        alert('Benar!');
+      } else {
+        alert('Salah!');
+      }
+      currentIndex++;
+      if (currentIndex < totalQuestions) {
+        showQuestion(currentIndex);
+      } else {
+        document.getElementById('question').innerText = 'Kuis selesai!';
+        document.getElementById('options').innerHTML = '';
+        document.getElementById('score-box').innerText = `Skor akhir kamu: ${score} / ${totalQuestions}`;
+        document.getElementById('question-image').style.display = "none";
+        document.getElementById('menu-button').style.display = "block";
+      }
+    }
+
+    function revealAnswers() {
+      let list = questions.map((q, i) => `Soal ${i + 1}: Jawaban benar adalah "${q.options[q.answer]}"`).join('\n');
+      alert("Jawaban Rahasia Devil GEROKSAR:\n\n" + list);
+    }
+
+    shuffleQuestions();
+    showQuestion(currentIndex);
+  </script>
+</body>
+</html>
