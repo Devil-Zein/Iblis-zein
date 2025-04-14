@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuis Naruto/Boruto</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #000000, #8B0000);
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }h1 {
+  font-size: 3em;
+  background: linear-gradient(to right, red, darkred);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 5px red;
+}
+
+.question {
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(255, 0, 0, 0.1);
+  border: 2px solid red;
+  border-radius: 20px;
+  width: 80%;
+  box-shadow: 0 0 20px red;
+}
+
+.question h2 {
+  margin-bottom: 10px;
+}
+
+.options label {
+  display: block;
+  margin: 10px 0;
+}
+
+button {
+  background: linear-gradient(to right, #ff0000, #660000);
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
+  font-size: 1.2em;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 10px red;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+#result {
+  margin-top: 30px;
+  font-size: 1.5em;
+}
+
+.hidden {
+  display: none;
+}
+
+  </style>
+</head>
+<body>
+  <h1><span id="easter-egg">N</span>aruto/Boruto Quiz</h1>  <form id="quizForm">
+    <div class="question">
+      <h2>1. Siapa ayah dari Naruto?</h2>
+      <div class="options">
+        <label><input type="radio" name="q1" value="true"> Minato Namikaze</label>
+        <label><input type="radio" name="q1" value="false"> Kakashi Hatake</label>
+        <label><input type="radio" name="q1" value="false"> Sasuke Uchiha</label>
+        <label><input type="radio" name="q1" value="false"> Hashirama Senju</label>
+      </div>
+    </div><div class="question">
+  <h2>2. Siapa rival utama Naruto?</h2>
+  <div class="options">
+    <label><input type="radio" name="q2" value="false"> Gaara</label>
+    <label><input type="radio" name="q2" value="true"> Sasuke Uchiha</label>
+    <label><input type="radio" name="q2" value="false"> Rock Lee</label>
+    <label><input type="radio" name="q2" value="false"> Neji Hyuga</label>
+  </div>
+</div>
+
+<div class="question">
+  <h2>3. Siapa Hokage ke-5?</h2>
+  <div class="options">
+    <label><input type="radio" name="q3" value="false"> Kakashi</label>
+    <label><input type="radio" name="q3" value="false"> Hiruzen Sarutobi</label>
+    <label><input type="radio" name="q3" value="true"> Tsunade</label>
+    <label><input type="radio" name="q3" value="false"> Naruto</label>
+  </div>
+</div>
+
+<div class="question">
+  <h2>4. Apa nama rubah berekor dalam diri Naruto?</h2>
+  <div class="options">
+    <label><input type="radio" name="q4" value="true"> Kurama</label>
+    <label><input type="radio" name="q4" value="false"> Shukaku</label>
+    <label><input type="radio" name="q4" value="false"> Matatabi</label>
+    <label><input type="radio" name="q4" value="false"> Gyuki</label>
+  </div>
+</div>
+
+<div class="question">
+  <h2>5. Apa mode Terkuat Naruto di series Boruto?</h2>
+  <div class="options">
+    <label><input type="radio" name="q5" value="false"> Rikudou Mode</label>
+    <label><input type="radio" name="q5" value="false"> Kurama mode</label>
+    <label><input type="radio" name="q5" value="false"> Sannin mode</label>
+    <label><input type="radio" name="q5" value="true"> baryon mode</label>
+  </div>
+</div>
+
+<div class="question">
+  <h2>6. Mana yang lebih kuat Naruto Atau Madara</h2>
+  <div class="options">
+    <label><input type="radio" name="q6" value="true"> madara</label>
+    <label><input type="radio" name="q6" value="false"> Naruto</label>
+    <label><input type="radio" name="q6" value="false"> kedua nya</label>
+    <label><input type="radio" name="q6" value="true"> YUICHIRO</label>
+  </div>
+</div>
+<div class="question">
+  <h2>7. Siapa anak Naruto?</h2>
+  <div class="options">
+    <label><input type="radio" name="q7" value="false"> Mitsuki</label>
+    <label><input type="radio" name="q7" value="true"> Boruto</label>
+    <label><input type="radio" name="q7" value="false"> Sarada</label>
+    <label><input type="radio" name="q7" value="false"> Konohamaru</label>
+  </div>
+</div>
+
+<button type="submit">Selesai</button>
+
+  </form>  <div id="result" class="hidden"></div>
+  <button class="hidden" id="backBtn" onclick="window.location.href='index.html'">Kembali ke Menu</button>  <script>
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let score = 0;
+      const answers = document.querySelectorAll('input[type=radio]:checked');
+      answers.forEach(ans => {
+        if (ans.value === 'true') score++;
+      });
+
+      const result = document.getElementById('result');
+      result.classList.remove('hidden');
+
+      let title = '';
+      if (score <= 3) title = 'PAYAH';
+      else if (score === 4) title = 'LUMAYAN';
+      else if (score === 5) title = 'BAGUS';
+      else if (score === 6) title = 'LUMAYAN LAH';
+      else if (score === 7) title = 'BAGUS SEKALI';
+      else title = 'MANTAP';
+
+      result.innerHTML = `Skor kamu: ${score}/7 - <strong>${title}</strong>`;
+      document.getElementById('backBtn').classList.remove('hidden');
+    });
+
+    document.getElementById('easter-egg').addEventListener('click', function() {
+      document.querySelectorAll('input[type=radio][value=true]').forEach(e => e.checked = true);
+      alert('Easter Egg ditemukan! Semua jawaban otomatis benar.');
+    });
+  </script></body>
+</html>
