@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuis Minecraft</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #4caf50, #795548);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }.container {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 20px limegreen;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(to right, #4caf50, #795548);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+.question-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.choices button {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: linear-gradient(to right, #6d4c41, #8bc34a);
+  color: white;
+  transition: transform 0.3s ease, background 0.3s;
+}
+
+.choices button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #8bc34a, #6d4c41);
+}
+
+.result, .menu-btn {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.menu-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.menu-btn:hover {
+  background-color: #388e3c;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="quizTitle">Kuis <span id="eggM">MINECRAFT</span></h1>
+    <div class="question-area">
+      <div class="question-title" id="questionTitle"></div>
+      <div class="choices" id="choiceButtons"></div>
+    </div>
+    <div class="result" id="result"></div>
+    <a href="index.html" class="menu-btn" style="display:none;" id="menuBtn">Kembali ke Menu</a>
+  </div><audio id="correctSound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio> <audio id="wrongSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+
+  <script>
+    const questions = [
+      { level: 'VERY EASY', question: 'Apa bahan utama untuk membuat pintu di Minecraft?', options: ['Besi', 'Kayu', 'Batu', 'Emas'], answer: 1 },
+      { level: 'EASY', question: 'Mob apa yang meledak saat mendekat?', options: ['Skeleton', 'Zombie', 'Creeper', 'Spider'], answer: 2 },
+      { level: 'NORMAL', question: 'Apa nama dimensi selain Overworld dan Nether?', options: ['Void', 'Heaven', 'The End', 'Beyond'], answer: 2 },
+      { level: 'HARD', question: 'Enchant apa untuk mempercepat menggali tanah?', options: ['Efficiency', 'Silk Touch', 'Fortune', 'Power'], answer: 0 },
+      { level: 'VERY HARD', question: 'Siapa bos terakhir di Minecraft?', options: ['Wither', 'Elder Guardian', 'Ender Dragon', 'Steve'], answer: 2 },
+      { level: 'IMPOSIBLE', question: 'APA MOB FAVORIT AHMAD?', options: ['CREEPER', 'ENDER DRAGON', 'WITHER', 'ZOMBIE', 'SKELETON', 'AXOLOTL'], answer: 0 }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    const questionTitle = document.getElementById('questionTitle');
+    const choiceButtons = document.getElementById('choiceButtons');
+    const result = document.getElementById('result');
+    const menuBtn = document.getElementById('menuBtn');
+    const correctSound = document.getElementById('correctSound');
+    const wrongSound = document.getElementById('wrongSound');
+
+    function loadQuestion() {
+      if (current >= questions.length) return showScore();
+      const q = questions[current];
+      questionTitle.innerHTML = `[${q.level}]<br>${q.question}`;
+      choiceButtons.innerHTML = '';
+
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.onclick = () => handleAnswer(i);
+        choiceButtons.appendChild(btn);
+      });
+    }
+
+    function handleAnswer(selected) {
+      const correct = questions[current].answer;
+      if (selected === correct) {
+        correctSound.play();
+        score++;
+      } else {
+        wrongSound.play();
+      }
+      current++;
+      setTimeout(loadQuestion, 1000);
+    }
+
+    function showScore() {
+      questionTitle.innerHTML = '';
+      choiceButtons.innerHTML = '';
+      result.innerHTML = `Skor kamu: ${score}/6<br><strong>${score < 3 ? 'GAGAL' : 'LULUS'}</strong>`;
+      menuBtn.style.display = 'inline-block';
+    }
+
+    // Easter Egg: Tampilkan jawaban saat klik soal (debug style)
+    questionTitle.onclick = () => {
+      const correct = questions[current]?.options[questions[current].answer];
+      if (correct) {
+        alert(`Jawaban benar: ${correct}`);
+      }
+    }
+
+    loadQuestion();
+  </script></body>
+</html>jadi
